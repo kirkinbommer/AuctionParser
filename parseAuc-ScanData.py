@@ -1,5 +1,7 @@
 import psycopg2
 
+# test!
+
 def splitQuoted(input, char=','):
   inQuote = False
   output = []
