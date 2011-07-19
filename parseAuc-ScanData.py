@@ -29,10 +29,11 @@ cur = conn.cursor()
 log = open('parseAuc.log', 'w')
 with open('Auc-ScanData.lua', 'rU') as f:
   for line in f:
+    line = line.lstrip().rstrip()
     if line.lstrip().startswith("\"return"):
-      line = line.lstrip().lstrip('"return {{')
-      line = line.rstrip().rstrip('-- [1]')
-      line = line.rstrip().rstrip('-- [2]')
+      line = line.lstrip('"return {{')
+      line = line.rstrip('-- [1]')
+      line = line.rstrip('-- [2]')
       items = line.split('},{')
       for item in items:
         intItemCount += 1
