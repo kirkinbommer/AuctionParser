@@ -5,34 +5,34 @@ from StringUtils import splitQuoted
 # initialize vars
 hostname, database, user, password, inputFile, logFile = "", "", "", "", "", ""
 
-'''
-  An auction is NOT new if a previous auction can be found that matches all of these criteria:
-    1. It is for the same item
-    2. It is posted by the same seller
-    3. It has the same buyout
-    4. It is the same quantity
-    5. It expires during the time range
-    
-    6. The number of auctions 
-    
-  This WILL exclude additional auctions
-'''
+
+#  An auction is NOT new if a previous auction can be found that matches all of these criteria:
+#    1. It is for the same item
+#    2. It is posted by the same seller
+#    3. It has the same buyout
+#    4. It is the same quantity
+#    5. It expires during the time range
+#    
+#    6. The number of auctions 
+#    
+#  This WILL exclude additional auctions
+
 def isNew(item):
   seller = item[19]
   time = item[7]
   timeLeft = item[6]
   item = item[22]
   price = item[16]
-  ''' 
-    Add max and min time left to time. This is the expiry. The expiry for previous auctions must not be in the time range, else
-    this might not be a new auction.
-    
-    timeLeft:
-    1 -> Less than 30 mins
-    2 -> 30 mins - 2 hours
-    3 -> 2 hours - 12 hours
-    4 -> 12 hours - 48 hours
-  '''
+
+  # Add max and min time left to time. This is the expiry. The expiry for previous auctions must not be in the time range, else
+  # this might not be a new auction.
+  #  
+  # timeLeft:
+  #  1 -> Less than 30 mins
+  #  2 -> 30 mins - 2 hours
+  #  3 -> 2 hours - 12 hours
+  #  4 -> 12 hours - 48 hours
+  
   return True
 
 def loadConfig():
