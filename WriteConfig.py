@@ -9,7 +9,7 @@ def main():
     config.set('Database', 'password', 'postgres')
     config.add_section('General')
     config.set('General', 'inputFile', 'test.lua')
-    config.set('General', 'logFille', 'auction.log')
+    config.set('General', 'logFile', 'auction.log')
     
     configfile = open('config.cfg', 'wb')
     config.write(configfile)
