@@ -1,5 +1,6 @@
 import psycopg2
-import ConfigParser, os
+import ConfigParser
+import os
 from StringUtils import splitQuoted
 
 # initialize vars
@@ -11,27 +12,29 @@ hostname, database, user, password, inputFile, logFile = "", "", "", "", "", ""
 #    2. It is posted by the same seller
 #    3. It has the same buyout
 #    4. It is the same quantity
-#    5. It expires during the time range
+#    5. It expires during the time range#
+#    6. The number of auctions matching these criteria is not greater than the number previously
 #    
-#    6. The number of auctions 
-#    
-#  This WILL exclude additional auctions
+# This WILL mark some new auctions as non-new if an identical auction is posted after the first one
+# sells - as long as the new auction is posted within the timeframe to  
 
 def isNew(item):
     seller = item[19]
     time = item[7]
     timeLeft = item[6]
-    item = item[22]
+    id = item[22]
     price = item[16]
 
-  # Add max and min time left to time. This is the expiry. The expiry for previous auctions must not be in the time range, else
-  # this might not be a new auction.
-  #  
-  # timeLeft:
-  #  1 -> Less than 30 mins
-  #  2 -> 30 mins - 2 hours
-  #  3 -> 2 hours - 12 hours
-  #  4 -> 12 hours - 48 hours
+    # Add max and min time left to time. This is the expiry. The expiry for previous auctions must not be in the time range, else
+    # this might not be a new auction.
+    #  
+    # timeLeft:
+    #  1 -> Less than 30 mins
+    #  2 -> 30 mins - 2 hours
+    #  3 -> 2 hours - 12 hours
+    #  4 -> 12 hours - 48 hours
+    
+    
   
     return True
 
@@ -51,7 +54,6 @@ def main():
       runImport()
 
 def runImport():
-      global hostname, database, user, password, inputFile, logFile
       intItemCount=0
       conn = psycopg2.connect('dbname=%s host=%s user=%s password=%s' % (database, hostname, user, password))
       cur = conn.cursor()
